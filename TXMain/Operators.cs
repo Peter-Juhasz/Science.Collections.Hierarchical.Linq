@@ -1,0 +1,152 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace System.Collections.Hierarchical
+{
+    public static partial class TreeNodeExtensions
+    {
+        /// <summary>
+        /// Gets the single root <see cref="ITreeNode{T}"/> from a set of <see cref="ITreeNode{T}"/>s.
+        /// </summary>
+        public static ITreeNode<T> Root<T>(this IEnumerable<ITreeNode<T>> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+
+            return source.Single(n => n.IsRoot());
+        }
+
+        /// <summary>
+        /// Gets all leaf <see cref="ITreeNode{T}"/>s of a set of <see cref="ITreeNode{T}"/>s.
+        /// </summary>
+        public static IEnumerable<ITreeNode<T>> Leaves<T>(this ITreeNode<T> node)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+
+            return node.DescendantNodesAndSelf().Where(n => n.IsLeaf());
+        }
+
+
+        /// <summary>
+        /// Determines whether a given <see cref="ITreeNode{T}"/> is a leaf node.
+        /// </summary>
+        public static bool IsLeaf<T>(this ITreeNode<T> node)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+
+            return !node.ChildNodes().Any();
+        }
+
+        /// <summary>
+        /// Gets the child values of a given <see cref="ITreeNode{T}"/>.
+        /// </summary>
+        public static IEnumerable<T> Children<T>(this ITreeNode<T> node)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+
+            return node.ChildNodes().Select(n => n.Value);
+        }
+
+        public static IEnumerable<ITreeNode<T>> AncestorNodes<T>(this ITreeNode<T> node) where T : class
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+
+            ITreeNode<T> current = node;
+
+            while (!current.IsRoot())
+            {
+                ITreeNode<T> parent = current.Parent();
+                yield return parent;
+                current = parent;
+            }
+        }
+        public static IEnumerable<ITreeNode<T>> AncestorNodesAndSelf<T>(this ITreeNode<T> node) where T : class
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+
+            yield return node;
+
+            foreach (ITreeNode<T> ancestor in node.AncestorNodes())
+                yield return ancestor;
+        }
+        public static IEnumerable<T> Ancestors<T>(this ITreeNode<T> node) where T : class
+        {
+            return node.AncestorNodes().Select(n => n.Value);
+        }
+        public static IEnumerable<T> AncestorsAndSelf<T>(this ITreeNode<T> node) where T : class
+        {
+            return node.AncestorNodesAndSelf().Select(n => n.Value);
+        }
+
+        public static IEnumerable<ITreeNode<T>> DescendantNodes<T>(this ITreeNode<T> node)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+
+            foreach (ITreeNode<T> child in node.ChildNodes())
+            {
+                yield return child;
+
+                foreach (ITreeNode<T> grandChild in node.DescendantNodes())
+                    yield return grandChild;
+            }
+        }
+        public static IEnumerable<ITreeNode<T>> DescendantNodesAndSelf<T>(this ITreeNode<T> node)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+
+            yield return node;
+
+            foreach (ITreeNode<T> descendant in node.Descendants())
+                yield return descendant;
+        }
+        public static IEnumerable<T> Descendants<T>(this ITreeNode<T> node)
+        {
+            return node.DescendantNodes().Select(n => n.Value);
+        }
+        public static IEnumerable<T> DescendantsAndSelf<T>(this ITreeNode<T> node)
+        {
+            return node.DescendantNodesAndSelf().Select(n => n.Value);
+        }
+
+        public static IEnumerable<ITreeNode<T>> SiblingNodes<T>(this ITreeNode<T> node)
+        {
+            return node.SiblingNodesAndSelf().Except(new[] { node });
+        }
+        public static IEnumerable<ITreeNode<T>> SiblingNodesAndSelf<T>(this ITreeNode<T> node)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+
+            if (node.IsRoot())
+                return Enumerable.Empty<ITreeNode<T>>();
+
+            return node.Parent().ChildNodes();
+        }
+
+        public static IEnumerable<T> Siblings<T>(this ITreeNode<T> node)
+        {
+            return node.SiblingNodes().Select(n => n.Value);
+        }
+        public static IEnumerable<T> SiblingsAndSelf<T>(this ITreeNode<T> node)
+        {
+            return node.SiblingNodesAndSelf().Select(n => n.Value);
+        }
+    }
+}
