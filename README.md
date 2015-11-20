@@ -33,7 +33,7 @@ ITreeNode<T> root = catgories.ToTree(c => c.Id, c => c.ParentId).Root();
 TO DO
 
 ### Querying trees
-Each of your values of a ```T``` type are represented as a ```ITreeNode<T>``` which provides the navigation. You can retrieve the value represnted by the node using the ```Value``` property.
+Each of your values of a type ```T``` are represented as a ```ITreeNode<T>``` which provides the navigation. You can retrieve the value represented by the node using the ```Value``` property.
 
 *Note: TX operates on in-memory objects and not on the rows of a SQL table or any other remote resource.*
 

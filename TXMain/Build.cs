@@ -146,7 +146,7 @@ namespace System.Collections.Hierarchical
                 return _hasParent(this.Value);
             }
 
-            public ITreeNode<T> Parent()
+            public ITreeNode<T> ParentNode()
             {
                 if (!this.IsRoot())
                     return null;

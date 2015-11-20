@@ -7,15 +7,32 @@ namespace System.Collections.Hierarchical
     public static partial class TreeNodeExtensions
     {
         /// <summary>
+        /// Gets the parent value of a <see cref="ITreeNode{T}"/>.
+        /// </summary>
+        public static T Parent<T>(this ITreeNode<T> node)
+        {
+            return node.ParentNode().Value;
+        }
+
+
+        /// <summary>
         /// Gets the single root <see cref="ITreeNode{T}"/> from a set of <see cref="ITreeNode{T}"/>s.
         /// </summary>
-        public static ITreeNode<T> Root<T>(this IEnumerable<ITreeNode<T>> source)
+        public static ITreeNode<T> RootNode<T>(this IEnumerable<ITreeNode<T>> source)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
 
             return source.Single(n => n.IsRoot());
+        }
+
+        /// <summary>
+        /// Gets the single root value from a set of <see cref="ITreeNode{T}"/>s.
+        /// </summary>
+        public static T Root<T>(this IEnumerable<ITreeNode<T>> source)
+        {
+            return source.RootNode().Value;
         }
 
         /// <summary>
@@ -33,13 +50,21 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets all leaf <see cref="ITreeNode{T}"/>s of a set of <see cref="ITreeNode{T}"/>s.
         /// </summary>
-        public static IEnumerable<ITreeNode<T>> Leaves<T>(this ITreeNode<T> node)
+        public static IEnumerable<ITreeNode<T>> LeafNodes<T>(this ITreeNode<T> node)
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
 
             return node.DescendantNodesAndSelf().Where(n => n.IsLeaf());
+        }
+
+        /// <summary>
+        /// Gets all leaf values of a set of <see cref="ITreeNode{T}"/>s.
+        /// </summary>
+        public static IEnumerable<T> Leaves<T>(this ITreeNode<T> node)
+        {
+            return node.LeafNodes().Select(n => n.Value);
         }
 
 
@@ -68,7 +93,7 @@ namespace System.Collections.Hierarchical
 
             while (!current.IsRoot())
             {
-                ITreeNode<T> parent = current.Parent();
+                ITreeNode<T> parent = current.ParentNode();
                 yield return parent;
                 current = parent;
             }
@@ -175,7 +200,7 @@ namespace System.Collections.Hierarchical
             if (node.IsRoot())
                 return Enumerable.Empty<ITreeNode<T>>();
 
-            return node.Parent().ChildNodes();
+            return node.ParentNode().ChildNodes();
         }
 
         /// <summary>

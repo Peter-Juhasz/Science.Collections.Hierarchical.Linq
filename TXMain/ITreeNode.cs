@@ -17,7 +17,7 @@ namespace System.Collections.Hierarchical
         /// Gets the parent <see cref="ITreeNode{T}"/> of a <see cref="ITreeNode{T}"/>.
         /// </summary>
         /// <returns></returns>
-        ITreeNode<T> Parent();
+        ITreeNode<T> ParentNode();
 
         /// <summary>
         /// Gets the value represented by a <see cref="ITreeNode{T}"/>.
