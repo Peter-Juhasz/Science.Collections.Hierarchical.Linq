@@ -15,6 +15,7 @@ public class Category
     public string Name { get; set; }
     
     public int ParentId { get; set; }
+    public Category Parent { get; set; }
 }
 ```
 
@@ -34,18 +35,23 @@ TO DO
 ### Querying trees
 Each of your values of a ```T``` type are represented as a ```ITreeNode<T>``` which provides the navigation. You can retrieve the value represnted by the node using the ```Value``` property.
 
-*Note: TX operates on in-memory objects and on the rows of a SQL table or any other remote resource.*
+*Note: TX operates on in-memory objects and not on the rows of a SQL table or any other remote resource.*
 
 #### Parent and child relations
 You can get the parent node using the ```Parent()``` method and children using the ```Children()``` method.
 
-#### Descendants and ancestors
+#### Descendants, ancestors and siblings
 
 
 #### Roots and leaves
+You can determine whether a node is a root by ```IsRoot()```. Get the root of a set of nodes by calling ```Root()```, which requires that the set of nodes has exactly one root.
+
+To get all leaf nodes of a sub-tree use ```Leaves()```.
 
 ## Portability
-TO DO
+* Portable Class Library which provides support for .NET Framework 4, Silverlight 5, Windows 8, Windows Phone 8.1, Windows Phone Silverlight 8
+* Common Language Specification compliant code
 
 ## Code Quality
-TO DO
+* Passes Microsoft Managed Recommended Rules without any warnings
+* All public members and parameters are documented
