@@ -12,7 +12,6 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Builds a tree using the essential operations.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="childrenSelector">Gets the child values of a given value.</param>
         /// <param name="parentSelector">Gets the parent value of a given value.</param>
         /// <param name="hasParent">Determines whether a given value has a parent value or not.</param>
@@ -42,7 +41,6 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Builds a tree using a <paramref name="childrenSelector"/> and <paramref name="parentSelector"/>. Null value for parent value indicates a root node.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="childrenSelector">Gets the child values of a given value.</param>
         /// <param name="parentSelector">Gets the parent value of a given value.</param>
         public static IEnumerable<ITreeNode<T>> ToTree<T>(
@@ -72,7 +70,6 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Realizes a tree based on only a children selector. Note: findig parent nodes have a high performance impact.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="childrenSelector">Selector for selecting child values.</param>
         public static IEnumerable<ITreeNode<T>> ToTree<T>(
             this IEnumerable<T> source,
