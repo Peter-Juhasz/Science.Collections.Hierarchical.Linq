@@ -146,7 +146,7 @@ namespace System.Collections.Hierarchical
                 return _hasParent(this.Value);
             }
 
-            public ITreeNode<T> ParentNode()
+            public ITreeNode<T> Parent()
             {
                 if (!this.IsRoot())
                     return null;
@@ -162,7 +162,7 @@ namespace System.Collections.Hierarchical
                 }
             }
 
-            public IEnumerable<ITreeNode<T>> ChildNodes()
+            public IEnumerable<ITreeNode<T>> Children()
             {
                 return _childrenSelector(_value).Select(e => new TreeNode<T>(e, _childrenSelector, _parentSelector, _hasParent));
             }
