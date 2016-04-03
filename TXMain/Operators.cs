@@ -7,15 +7,6 @@ namespace System.Collections.Hierarchical
     public static partial class TreeNodeExtensions
     {
         /// <summary>
-        /// Gets the parent value of a <see cref="ITreeNode{T}"/>.
-        /// </summary>
-        public static T ParentValue<T>(this ITreeNode<T> node)
-        {
-            return node.Parent().Value;
-        }
-
-
-        /// <summary>
         /// Gets the single root <see cref="ITreeNode{T}"/> from a set of <see cref="ITreeNode{T}"/>s.
         /// </summary>
         public static ITreeNode<T> Root<T>(this IEnumerable<ITreeNode<T>> source)
@@ -26,14 +17,7 @@ namespace System.Collections.Hierarchical
 
             return source.Single(n => n.IsRoot());
         }
-
-        /// <summary>
-        /// Gets the single root value from a set of <see cref="ITreeNode{T}"/>s.
-        /// </summary>
-        public static T RootValue<T>(this IEnumerable<ITreeNode<T>> source)
-        {
-            return source.Root().Value;
-        }
+        
 
         /// <summary>
         /// Determines whether a given <see cref="ITreeNode{T}"/> is a leaf node.
@@ -59,26 +43,6 @@ namespace System.Collections.Hierarchical
             return node.DescendantsAndSelf().Where(n => n.IsLeaf());
         }
 
-        /// <summary>
-        /// Gets all leaf values of a set of <see cref="ITreeNode{T}"/>s.
-        /// </summary>
-        public static IEnumerable<T> LeafValues<T>(this ITreeNode<T> node)
-        {
-            return node.Leaves().Select(n => n.Value);
-        }
-
-
-        /// <summary>
-        /// Gets the child values of a given <see cref="ITreeNode{T}"/>.
-        /// </summary>
-        public static IEnumerable<T> ChildValues<T>(this ITreeNode<T> node)
-        {
-            if (node == null)
-                throw new ArgumentNullException(nameof(node));
-
-
-            return node.Children().Select(n => n.Value);
-        }
 
         /// <summary>
         /// Gets the ancestor <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/>.
@@ -114,22 +78,6 @@ namespace System.Collections.Hierarchical
                 yield return ancestor;
         }
 
-        /// <summary>
-        /// Gets the ancestor values of a given <see cref="ITreeNode{T}"/>.
-        /// </summary>
-        public static IEnumerable<T> AncestorValues<T>(this ITreeNode<T> node) where T : class
-        {
-            return node.Ancestors().Select(n => n.Value);
-        }
-
-        /// <summary>
-        /// Gets the ancestor values and self of a given <see cref="ITreeNode{T}"/>.
-        /// </summary>
-        public static IEnumerable<T> AncestorValuesAndSelf<T>(this ITreeNode<T> node) where T : class
-        {
-            return node.AncestorsAndSelf().Select(n => n.Value);
-        }
-
 
         /// <summary>
         /// Gets the descendant <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/>.
@@ -144,7 +92,7 @@ namespace System.Collections.Hierarchical
             {
                 yield return child;
 
-                foreach (ITreeNode<T> grandChild in node.Descendants())
+                foreach (ITreeNode<T> grandChild in child.Descendants())
                     yield return grandChild;
             }
         }
@@ -159,24 +107,8 @@ namespace System.Collections.Hierarchical
 
             yield return node;
 
-            foreach (ITreeNode<T> descendant in node.DescendantValues())
+            foreach (ITreeNode<T> descendant in node.Descendants())
                 yield return descendant;
-        }
-
-        /// <summary>
-        /// Gets the descendant values of a given <see cref="ITreeNode{T}"/>.
-        /// </summary>
-        public static IEnumerable<T> DescendantValues<T>(this ITreeNode<T> node)
-        {
-            return node.Descendants().Select(n => n.Value);
-        }
-
-        /// <summary>
-        /// Gets the descendant values of a given <see cref="ITreeNode{T}"/> and self.
-        /// </summary>
-        public static IEnumerable<T> DescendantValuesAndSelf<T>(this ITreeNode<T> node)
-        {
-            return node.DescendantsAndSelf().Select(n => n.Value);
         }
 
 
@@ -201,22 +133,6 @@ namespace System.Collections.Hierarchical
                 return Enumerable.Empty<ITreeNode<T>>();
 
             return node.Parent().Children();
-        }
-
-        /// <summary>
-        /// Gets the sibling values of a given <see cref="ITreeNode{T}"/>.
-        /// </summary>
-        public static IEnumerable<T> SiblingValues<T>(this ITreeNode<T> node)
-        {
-            return node.Siblings().Select(n => n.Value);
-        }
-
-        /// <summary>
-        /// Gets the sibling values of a given <see cref="ITreeNode{T}"/> including self.
-        /// </summary>
-        public static IEnumerable<T> SiblingValuesAndSelf<T>(this ITreeNode<T> node)
-        {
-            return node.SiblingsAndSelf().Select(n => n.Value);
         }
     }
 }
