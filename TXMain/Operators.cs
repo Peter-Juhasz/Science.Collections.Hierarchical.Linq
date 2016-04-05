@@ -100,7 +100,7 @@ namespace System.Collections.Hierarchical
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
-
+            
 
             foreach (ITreeNode<T> child in node.Children())
             {
@@ -175,11 +175,11 @@ namespace System.Collections.Hierarchical
         /// Executes an action on self and all descendant <see cref="ITreeNode{T}"/>s.
         /// </summary>
         /// <param name="action">Action to execute on each node.</param>
-        /// <param name="includeSelf">Determines whether to include the selected <see cref="ITreeNode{T}"/> or not.</param>
+        /// <param name="excludeSelf">Determines whether to exclude the selected <see cref="ITreeNode{T}"/> or not.</param>
         public static void Traverse<T>(
             this ITreeNode<T> node,
             Action<ITreeNode<T>> action,
-            bool includeSelf = true
+            bool excludeSelf = false
         )
         {
             if (node == null)
@@ -189,9 +189,9 @@ namespace System.Collections.Hierarchical
                 throw new ArgumentNullException(nameof(action));
 
 
-            foreach (ITreeNode<T> child in includeSelf
-                ? node.DescendantsAndSelf()
-                : node.Descendants()
+            foreach (ITreeNode<T> child in excludeSelf
+                ? node.Descendants()
+                : node.DescendantsAndSelf()
             )
                 action(child);
         }
