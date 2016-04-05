@@ -54,7 +54,7 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the ancestor <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/>.
         /// </summary>
-        public static IEnumerable<ITreeNode<T>> Ancestors<T>(this ITreeNode<T> node) where T : class
+        public static IEnumerable<ITreeNode<T>> Ancestors<T>(this ITreeNode<T> node)
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
@@ -73,7 +73,7 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the ancestor <see cref="ITreeNode{T}"/>s and self of a given <see cref="ITreeNode{T}"/>.
         /// </summary>
-        public static IEnumerable<ITreeNode<T>> AncestorsAndSelf<T>(this ITreeNode<T> node) where T : class
+        public static IEnumerable<ITreeNode<T>> AncestorsAndSelf<T>(this ITreeNode<T> node)
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
@@ -140,6 +140,19 @@ namespace System.Collections.Hierarchical
                 return Enumerable.Empty<ITreeNode<T>>();
 
             return node.Parent().Children();
+        }
+
+
+        /// <summary>
+        /// Counts the depth of the <see cref="ITreeNode{T}"/>.
+        /// </summary>
+        public static int Depth<T>(this ITreeNode<T> node)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+            
+
+            return node.Ancestors().Count();
         }
     }
 }
