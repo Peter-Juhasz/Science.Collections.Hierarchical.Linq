@@ -3,7 +3,7 @@
     /// <summary>
     /// Determines the position of including the selected node.
     /// </summary>
-    public enum SelfPosition
+    public enum SelfInclusionPosition
     {
         /// <summary>
         /// Returns the selected node as first and then the other nodes.

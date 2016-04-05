@@ -39,12 +39,14 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ITreeNode.cs" />
     <Compile Include="Build.cs" />
     <Compile Include="Operators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SelfPosition.cs" />
+    <Compile Include="SelfInclusionPosition.cs" />
+    <Compile Include="LevelTraverseDirection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

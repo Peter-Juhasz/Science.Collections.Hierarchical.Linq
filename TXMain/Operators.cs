@@ -75,20 +75,20 @@ namespace System.Collections.Hierarchical
         /// </summary>
         public static IEnumerable<ITreeNode<T>> AncestorsAndSelf<T>(
             this ITreeNode<T> node,
-            SelfPosition selfPosition = SelfPosition.SelfFirst
+            SelfInclusionPosition selfPosition = SelfInclusionPosition.SelfFirst
         )
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
 
-            if (selfPosition == SelfPosition.SelfFirst)
+            if (selfPosition == SelfInclusionPosition.SelfFirst)
                 yield return node;
 
             foreach (ITreeNode<T> ancestor in node.Ancestors())
                 yield return ancestor;
 
-            if (selfPosition == SelfPosition.SelfLast)
+            if (selfPosition == SelfInclusionPosition.SelfLast)
                 yield return node;
         }
 
@@ -96,17 +96,22 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the descendant <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/>.
         /// </summary>
-        public static IEnumerable<ITreeNode<T>> Descendants<T>(this ITreeNode<T> node)
+        public static IEnumerable<ITreeNode<T>> Descendants<T>(
+            this ITreeNode<T> node,
+            LevelTraverseDirection levelTraverseDirection = LevelTraverseDirection.LeftToRight
+        )
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
             
 
-            foreach (ITreeNode<T> child in node.Children())
+            foreach (ITreeNode<T> child in node.Children()
+                .ReverseIf(levelTraverseDirection == LevelTraverseDirection.RightToLeft)
+            )
             {
                 yield return child;
 
-                foreach (ITreeNode<T> grandChild in child.Descendants())
+                foreach (ITreeNode<T> grandChild in child.Descendants(levelTraverseDirection))
                     yield return grandChild;
             }
         }
@@ -115,20 +120,21 @@ namespace System.Collections.Hierarchical
         /// </summary>
         public static IEnumerable<ITreeNode<T>> DescendantsAndSelf<T>(
             this ITreeNode<T> node,
-            SelfPosition selfPosition = SelfPosition.SelfFirst
+            LevelTraverseDirection levelTraverseDirection = LevelTraverseDirection.LeftToRight,
+            SelfInclusionPosition selfPosition = SelfInclusionPosition.SelfFirst
         )
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
 
-            if (selfPosition == SelfPosition.SelfFirst)
+            if (selfPosition == SelfInclusionPosition.SelfFirst)
                 yield return node;
 
-            foreach (ITreeNode<T> descendant in node.Descendants())
+            foreach (ITreeNode<T> descendant in node.Descendants(levelTraverseDirection))
                 yield return descendant;
 
-            if (selfPosition == SelfPosition.SelfLast)
+            if (selfPosition == SelfInclusionPosition.SelfLast)
                 yield return node;
 
         }
@@ -137,24 +143,32 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the sibling <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/>.
         /// </summary>
-        public static IEnumerable<ITreeNode<T>> Siblings<T>(this ITreeNode<T> node)
+        public static IEnumerable<ITreeNode<T>> Siblings<T>(
+            this ITreeNode<T> node,
+            LevelTraverseDirection direction = LevelTraverseDirection.LeftToRight
+        )
         {
-            return node.SiblingsAndSelf().Except(new[] { node });
+            return node.SiblingsAndSelf(direction).Except(new[] { node });
         }
 
         /// <summary>
         /// Gets the sibling <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/> including self.
         /// </summary>
-        public static IEnumerable<ITreeNode<T>> SiblingsAndSelf<T>(this ITreeNode<T> node)
+        public static IEnumerable<ITreeNode<T>> SiblingsAndSelf<T>(
+            this ITreeNode<T> node,
+            LevelTraverseDirection direction = LevelTraverseDirection.LeftToRight
+        )
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
-
+            
 
             if (node.IsRoot())
                 return Enumerable.Empty<ITreeNode<T>>();
 
-            return node.Parent().Children();
+            return node.Parent().Children()
+                .ReverseIf(direction == LevelTraverseDirection.RightToLeft)
+            ;
         }
 
 
@@ -179,6 +193,7 @@ namespace System.Collections.Hierarchical
         public static void Traverse<T>(
             this ITreeNode<T> node,
             Action<ITreeNode<T>> action,
+            LevelTraverseDirection levelTraverseDirection = LevelTraverseDirection.LeftToRight,
             bool excludeSelf = false
         )
         {
@@ -188,10 +203,10 @@ namespace System.Collections.Hierarchical
             if (action == null)
                 throw new ArgumentNullException(nameof(action));
 
-
+            
             foreach (ITreeNode<T> child in excludeSelf
-                ? node.Descendants()
-                : node.DescendantsAndSelf()
+                ? node.Descendants(levelTraverseDirection)
+                : node.DescendantsAndSelf(levelTraverseDirection)
             )
                 action(child);
         }
