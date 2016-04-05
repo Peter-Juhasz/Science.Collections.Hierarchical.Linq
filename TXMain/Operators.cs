@@ -154,5 +154,23 @@ namespace System.Collections.Hierarchical
 
             return node.Ancestors().Count();
         }
+
+
+        /// <summary>
+        /// Executes an action on self and all descendant <see cref="ITreeNode{T}"/>s.
+        /// </summary>
+        /// <param name="action">Action to execute on each node.</param>
+        public static void Traverse<T>(this ITreeNode<T> node, Action<ITreeNode<T>> action)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+            if (action == null)
+                throw new ArgumentNullException(nameof(action));
+
+
+            foreach (ITreeNode<T> child in node.DescendantsAndSelf())
+                action(child);
+        }
     }
 }
