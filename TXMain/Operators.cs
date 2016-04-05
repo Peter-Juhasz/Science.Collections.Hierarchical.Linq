@@ -73,16 +73,23 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the ancestor <see cref="ITreeNode{T}"/>s and self of a given <see cref="ITreeNode{T}"/>.
         /// </summary>
-        public static IEnumerable<ITreeNode<T>> AncestorsAndSelf<T>(this ITreeNode<T> node)
+        public static IEnumerable<ITreeNode<T>> AncestorsAndSelf<T>(
+            this ITreeNode<T> node,
+            SelfPosition selfPosition = SelfPosition.SelfFirst
+        )
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
 
-            yield return node;
+            if (selfPosition == SelfPosition.SelfFirst)
+                yield return node;
 
             foreach (ITreeNode<T> ancestor in node.Ancestors())
                 yield return ancestor;
+
+            if (selfPosition == SelfPosition.SelfLast)
+                yield return node;
         }
 
 
@@ -106,16 +113,24 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the descendant <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/> and self.
         /// </summary>
-        public static IEnumerable<ITreeNode<T>> DescendantsAndSelf<T>(this ITreeNode<T> node)
+        public static IEnumerable<ITreeNode<T>> DescendantsAndSelf<T>(
+            this ITreeNode<T> node,
+            SelfPosition selfPosition = SelfPosition.SelfFirst
+        )
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
 
-            yield return node;
+            if (selfPosition == SelfPosition.SelfFirst)
+                yield return node;
 
             foreach (ITreeNode<T> descendant in node.Descendants())
                 yield return descendant;
+
+            if (selfPosition == SelfPosition.SelfLast)
+                yield return node;
+
         }
 
 
