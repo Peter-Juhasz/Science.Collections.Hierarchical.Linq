@@ -52,16 +52,6 @@ namespace System.Collections.Hierarchical
         )
             where T : class
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            if (childrenSelector == null)
-                throw new ArgumentNullException(nameof(childrenSelector));
-
-            if (parentSelector == null)
-                throw new ArgumentNullException(nameof(parentSelector));
-            
-
             return source.ToForest(
                 childrenSelector,
                 parentSelector,
@@ -85,16 +75,6 @@ namespace System.Collections.Hierarchical
         )
             where TKey : IEquatable<TKey>
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            if (keySelector == null)
-                throw new ArgumentNullException(nameof(keySelector));
-
-            if (parentKeySelector == null)
-                throw new ArgumentNullException(nameof(parentKeySelector));
-            
-
             return source.ToForest(
                 childrenSelector: c => source.Where(c2 => parentKeySelector(c2).Equals(keySelector(c))),
                 parentSelector: c => source.Single(c2 => keySelector(c2).Equals(parentKeySelector(c))),
@@ -112,13 +92,6 @@ namespace System.Collections.Hierarchical
             Func<T, IEnumerable<T>> childrenSelector
         )
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            if (childrenSelector == null)
-                throw new ArgumentNullException(nameof(childrenSelector));
-
-
             return source.ToForest(
                 childrenSelector,
                 parentSelector: e => source.SingleOrDefault(e2 => childrenSelector(e2).Contains(e)),

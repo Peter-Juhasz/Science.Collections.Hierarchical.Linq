@@ -7,6 +7,7 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the ancestor <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/>.
         /// </summary>
+        /// <param name="includeSelf">Determines whether to include the selected <see cref="ITreeNode{T}"/> or not.</param>
         public static IEnumerable<ITreeNode<T>> Ancestors<T>(
             this ITreeNode<T> node,
             bool includeSelf = false

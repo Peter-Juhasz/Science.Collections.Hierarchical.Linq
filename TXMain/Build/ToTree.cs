@@ -4,9 +4,6 @@ using System.Linq;
 
 namespace System.Collections.Hierarchical
 {
-    /// <summary>
-    /// Contains extensions for building trees.
-    /// </summary>
     public static partial class TreeNodeExtensions
     {
         /// <summary>

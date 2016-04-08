@@ -8,6 +8,7 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the sibling <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/> including self.
         /// </summary>
+        /// <param name="includeSelf">Determines whether to include the selected <see cref="ITreeNode{T}"/> or not.</param>
         public static IEnumerable<ITreeNode<T>> Siblings<T>(
             this ITreeNode<T> node,
             LevelTraverseDirection direction = LevelTraverseDirection.LeftToRight,

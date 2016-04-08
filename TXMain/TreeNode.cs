@@ -4,10 +4,7 @@ using System.Linq;
 
 namespace System.Collections.Hierarchical
 {
-    /// <summary>
-    /// Contains extensions for building trees.
-    /// </summary>
-    public sealed partial class TreeNode<T> : ITreeNode<T>
+    internal sealed partial class TreeNode<T> : ITreeNode<T>
     {
         internal TreeNode(T value, Func<T, IEnumerable<T>> childrenSelector, Func<T, T> parentSelector, Func<T, bool> hasParent)
         {

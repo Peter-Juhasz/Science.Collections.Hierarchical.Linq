@@ -7,6 +7,7 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Counts the depth of the <see cref="ITreeNode{T}"/>.
         /// </summary>
+        /// <param name="includeSelf">Determines whether to include the selected <see cref="ITreeNode{T}"/> or not.</param>
         public static int Depth<T>(
             this ITreeNode<T> node,
             bool includeSelf = false

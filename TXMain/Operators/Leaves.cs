@@ -20,8 +20,10 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets all leaf <see cref="ITreeNode{T}"/>s of a set of <see cref="ITreeNode{T}"/>s.
         /// </summary>
+        /// <param name="includeSelf">Determines whether to include the selected <see cref="ITreeNode{T}"/> or not.</param>
         public static IEnumerable<ITreeNode<T>> Leaves<T>(
             this ITreeNode<T> node,
+
             LevelTraverseDirection levelTraverseDirection = LevelTraverseDirection.LeftToRight,
             bool includeSelf = false
         )

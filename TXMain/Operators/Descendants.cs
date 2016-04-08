@@ -7,9 +7,11 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the descendant <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/>.
         /// </summary>
+        /// <param name="traverseMode">Determines the order of enumerating descendant nodes in the sub-tree.</param>
+        /// <param name="levelTraverseDirection">Determines the order of enumerating child nodes at a single level.</param>
+        /// <param name="includeSelf">Determines whether to include the selected <see cref="ITreeNode{T}"/> or not.</param>
         public static IEnumerable<ITreeNode<T>> Descendants<T>(
             this ITreeNode<T> node,
-
             TraverseMode traverseMode = TraverseMode.PreOrder,
             LevelTraverseDirection levelTraverseDirection = LevelTraverseDirection.LeftToRight,
             bool includeSelf = false
@@ -35,9 +37,10 @@ namespace System.Collections.Hierarchical
         /// <summary>
         /// Gets the descendant <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/> in pre-order.
         /// </summary>
+        /// <param name="levelTraverseDirection">Determines the order of enumerating child nodes at a single level.</param>
+        /// <param name="includeSelf">Determines whether to include the selected <see cref="ITreeNode{T}"/> or not.</param>
         internal static IEnumerable<ITreeNode<T>> DescendantsPreOrder<T>(
             this ITreeNode<T> node,
-            
             LevelTraverseDirection levelTraverseDirection = LevelTraverseDirection.LeftToRight,
             bool includeSelf = false
         )
@@ -61,11 +64,12 @@ namespace System.Collections.Hierarchical
         }
 
         /// <summary>
-        /// Gets the descendant <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/> in pre-order.
+        /// Gets the descendant <see cref="ITreeNode{T}"/>s of a given <see cref="ITreeNode{T}"/> in post-order.
         /// </summary>
+        /// <param name="levelTraverseDirection">Determines the order of enumerating child nodes at a single level.</param>
+        /// <param name="includeSelf">Determines whether to include the selected <see cref="ITreeNode{T}"/> or not.</param>
         internal static IEnumerable<ITreeNode<T>> DescendantsPostOrder<T>(
             this ITreeNode<T> node,
-
             LevelTraverseDirection levelTraverseDirection = LevelTraverseDirection.LeftToRight,
             bool includeSelf = false
         )
