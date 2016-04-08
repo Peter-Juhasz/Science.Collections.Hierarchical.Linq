@@ -39,6 +39,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Build\TreeNode.cs" />
     <Compile Include="TreeNode.cs" />
     <Compile Include="Build\ToTree.cs" />
     <Compile Include="Build\ToForest.cs" />

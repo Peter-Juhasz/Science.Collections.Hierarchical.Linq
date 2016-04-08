@@ -65,7 +65,7 @@ namespace System.Collections.Hierarchical
             return source.ToForest(
                 childrenSelector,
                 parentSelector,
-                hasParent: e2 => parentSelector(e2) != default(T)
+                hasParent: p => parentSelector(p) != default(T)
             );
         }
 

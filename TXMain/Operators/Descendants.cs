@@ -24,7 +24,10 @@ namespace System.Collections.Hierarchical
                 case TraverseMode.PreOrder:
                     return node.DescendantsPreOrder(levelTraverseDirection: levelTraverseDirection, includeSelf: includeSelf);
 
-                default: throw new NotSupportedException($"Traverse mode not supported: {traverseMode}");
+                case TraverseMode.PostOrder:
+                    return node.DescendantsPostOrder(levelTraverseDirection: levelTraverseDirection, includeSelf: includeSelf);
+
+                default: throw new NotSupportedException($"Traverse mode '{traverseMode}' is not supported.");
             }
         }
 
