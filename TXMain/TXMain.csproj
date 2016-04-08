@@ -39,14 +39,22 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TreeNode.cs" />
+    <Compile Include="Build\ToTree.cs" />
+    <Compile Include="Build\ToForest.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ITreeNode.cs" />
-    <Compile Include="Build.cs" />
-    <Compile Include="Operators.cs" />
+    <Compile Include="Operators\Traverse.cs" />
+    <Compile Include="Operators\Depth.cs" />
+    <Compile Include="Operators\Leaves.cs" />
+    <Compile Include="Operators\Roots.cs" />
+    <Compile Include="Operators\Siblings.cs" />
+    <Compile Include="Operators\Descendants.cs" />
+    <Compile Include="Operators\Ancestors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SelfInclusionPosition.cs" />
     <Compile Include="LevelTraverseDirection.cs" />
+    <Compile Include="TraverseMode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
