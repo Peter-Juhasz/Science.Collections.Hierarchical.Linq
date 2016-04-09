@@ -36,7 +36,7 @@ namespace System.Collections.Hierarchical
                 throw new ArgumentNullException(nameof(hasParent));
 
 
-            return source.Select(e => new TreeNode<T>(e, childrenSelector, parentSelector, hasParent)).Roots();
+            return source.Select(e => new EnumerableTreeNode<T>(e, childrenSelector, parentSelector, hasParent)).Roots();
         }
 
         /// <summary>

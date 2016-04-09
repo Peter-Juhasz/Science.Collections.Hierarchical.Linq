@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace System.Collections.Hierarchical
 {
-    internal sealed class TreeNode<T> : ITreeNode<T>
+    internal sealed class EnumerableTreeNode<T> : ITreeNode<T>
     {
-        internal TreeNode(T value, Func<T, IEnumerable<T>> childrenSelector, Func<T, T> parentSelector, Func<T, bool> hasParent)
+        internal EnumerableTreeNode(T value, Func<T, IEnumerable<T>> childrenSelector, Func<T, T> parentSelector, Func<T, bool> hasParent)
         {
             _value = value;
             _childrenSelector = childrenSelector;
@@ -29,7 +28,7 @@ namespace System.Collections.Hierarchical
             if (!this.IsRoot())
                 return null;
 
-            return new TreeNode<T>(_parentSelector(this.Value), _childrenSelector, _parentSelector, _hasParent);
+            return new EnumerableTreeNode<T>(_parentSelector(this.Value), _childrenSelector, _parentSelector, _hasParent);
         }
 
         public T Value
@@ -42,7 +41,7 @@ namespace System.Collections.Hierarchical
 
         public IEnumerable<ITreeNode<T>> Children()
         {
-            return _childrenSelector(_value).Select(e => new TreeNode<T>(e, _childrenSelector, _parentSelector, _hasParent));
+            return _childrenSelector(_value).Select(e => new EnumerableTreeNode<T>(e, _childrenSelector, _parentSelector, _hasParent));
         }
 
 
