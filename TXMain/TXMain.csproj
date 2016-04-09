@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Build\TreeNode.cs" />
+    <Compile Include="MemoizedTreeNode.cs" />
     <Compile Include="TreeNode.cs" />
     <Compile Include="Build\ToTree.cs" />
     <Compile Include="Build\ToForest.cs" />
