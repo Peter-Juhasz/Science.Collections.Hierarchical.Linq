@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace System.Collections.Hierarchical
 {
-    internal sealed partial class TreeNode<T> : ITreeNode<T>
+    internal sealed class TreeNode<T> : ITreeNode<T>
     {
         internal TreeNode(T value, Func<T, IEnumerable<T>> childrenSelector, Func<T, T> parentSelector, Func<T, bool> hasParent)
         {
@@ -44,5 +44,12 @@ namespace System.Collections.Hierarchical
         {
             return _childrenSelector(_value).Select(e => new TreeNode<T>(e, _childrenSelector, _parentSelector, _hasParent));
         }
+
+
+        #region IEnumerable<ITreeNode<T>>
+        public IEnumerator<ITreeNode<T>> GetEnumerator() => this.Children().GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+        #endregion
     }
 }

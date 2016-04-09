@@ -6,7 +6,7 @@ namespace System.Collections.Hierarchical
     /// Provides navigation for a value of type <see cref="T"/> in a hierarchy.
     /// </summary>
     /// <typeparam name="T">Type of the value represented by the <see cref="ITreeNode{T}"/>.</typeparam>
-    public interface ITreeNode<T>
+    public interface ITreeNode<T> : IEnumerable<ITreeNode<T>>
     {
         /// <summary>
         /// Determines whether this <see cref="ITreeNode{T}"/> is a root.
