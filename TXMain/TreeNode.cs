@@ -7,7 +7,7 @@ namespace System.Collections.Hierarchical
     /// </summary>
     public sealed class TreeNode<T> : ITreeNode<T>
     {
-        internal TreeNode(T value)
+        public TreeNode(T value)
         {
             _value = value;
 
