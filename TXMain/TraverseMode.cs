@@ -10,11 +10,14 @@
         /// </summary>
         PreOrder,
         
-        InOrder,
-
         /// <summary>
         /// Visit the child nodes first and then the actual node.
         /// </summary>
         PostOrder,
+
+        /// <summary>
+        /// Visit the descendant nodes level by level.
+        /// </summary>
+        LevelOrder,
     }
 }
