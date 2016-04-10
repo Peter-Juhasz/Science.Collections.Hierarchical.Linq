@@ -40,7 +40,6 @@ namespace System.Collections.Hierarchical
 
         private readonly ITreeNode<T> _node;
         private readonly MemoizedTreeNode<T> _memoizedParent;
-        private readonly IEnumerable<MemoizedTreeNode<T>> _memoizedChildren;
 
         private readonly Lazy<bool> _isRoot;
         private readonly Lazy<MemoizedTreeNode<T>> _parent;
