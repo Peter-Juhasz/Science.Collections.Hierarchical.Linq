@@ -102,7 +102,13 @@ namespace System.Collections.Hierarchical
                 item.SetParent(_container);
             }
 
-            public void Clear() => _innerCollection.Clear();
+            public void Clear()
+            {
+                foreach (TreeNode<TValue> node in _innerCollection)
+                    node.SetParent(null);
+
+                _innerCollection.Clear();
+            }
 
             public bool Contains(TreeNode<TValue> item) => _innerCollection.Contains(item);
 
