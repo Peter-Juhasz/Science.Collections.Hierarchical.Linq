@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace System.Collections.Hierarchical
+namespace Science.Collections.Hierarchical.Linq
 {
     /// <summary>
     /// Provides navigation for a value of type <see cref="T"/> in a hierarchy.

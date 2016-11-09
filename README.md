@@ -1,5 +1,5 @@
-# Tree Extensions
-Tree Extensions is a .NET library which provides LINQ-like operators for querying any tree-like structure.
+# Science.Collections.Hierarchical.Linq
+It is a .NET library which provides LINQ-like operators for querying any tree-like structure.
  
 ## Getting started
 

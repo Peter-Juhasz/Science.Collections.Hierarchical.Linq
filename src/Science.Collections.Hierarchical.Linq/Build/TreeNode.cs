@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace System.Collections.Hierarchical
+namespace Science.Collections.Hierarchical.Linq
 {
     /// <summary>
     /// Contains helper methods for creating <see cref="ITreeNode{T}"/>s.

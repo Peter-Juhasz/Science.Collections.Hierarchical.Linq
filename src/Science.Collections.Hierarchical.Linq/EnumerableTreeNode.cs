@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace System.Collections.Hierarchical
+namespace Science.Collections.Hierarchical.Linq
 {
     internal sealed class EnumerableTreeNode<T> : ITreeNode<T>
     {

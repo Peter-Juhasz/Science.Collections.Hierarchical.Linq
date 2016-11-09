@@ -1,6 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
-namespace System.Collections.Hierarchical
+namespace Science.Collections.Hierarchical.Linq
 {
     public static partial class TreeNodeExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace System.Collections.Hierarchical
+﻿namespace Science.Collections.Hierarchical.Linq
 {
     /// <summary>
     /// Determines the order of enumerating the nodes of a sub-tree.
